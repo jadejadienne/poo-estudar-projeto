@@ -1,0 +1,122 @@
+package br.com.ifce.projeton1.principal;
+
+import java.util.Scanner;
+import br.com.ifce.projeton1.personagens.Personagem;
+
+//Esse nome personagem contém os metadados relacionados aos personagens.  
+
+public class Batalha {
+
+//Classe batalha e public que pode ser acessado de outros pacotes. 
+
+    Scanner ler = new Scanner(System.in);
+//Declara um objeto chamado scanner que será utilizado para ler entradas do usuário.
+
+    public void batalhar(Personagem play1, Personagem play2) {
+//Este é o início da definição do método batalhar, que aceita dois parâmetros do tipo Personagem chamados play1 e play2.
+
+        while (play1.vivo() && play2.vivo()) {
+//Inicia um loop que continuará enquanto ambos os personagens (play1 e play2) estiverem vivos. Presumivelmente, o método
+//vivo() verifica se o personagem está vivo.
+
+            for (int i = 1; i <= 2; i++) {
+//Inicia um loop que itera duas vezes, alternando entre os dois jogadores (i representa o número do jogador atual).
+
+                int a;
+                boolean escolhaValida = false;
+//Declaração de variáveis locais: a será utilizada para armazenar a escolha de ação do jogador, e escolhaValida será 
+//utilizada para garantir que a escolha seja válida.
+
+                while (!escolhaValida) {
+
+//Inicia um loop que continuará enquanto a escolha do jogador não for válida.
+
+                    System.out.println("\nJogador " + i + ", escolha sua forma de ataque...");
+//Exibe uma mensagem indicando ao jogador atual (i) para escolher sua forma de ataque.
+
+                    System.out.println("1 - Atacar com sua arma");
+                    System.out.println("2 - Atacar com poder especial");
+                    System.out.println("3 - Desistir");
+
+//Apresenta as opções disponíveis para o jogador. O jogador pode escolher atacar com a arma (opção 1), atacar
+//com um poder especial (opção 2) ou desistir (opção 3).
+
+                    a = ler.nextInt();
+//Lê a escolha do jogador usando o objeto Scanner (ler). O valor é armazenado na variável a.
+
+
+                    if (a >= 1 && a <= 3) {
+                        escolhaValida = true;
+                    } else {
+                        System.out.println("Por favor, digite uma opção válida!");
+                    }
+//Verifica se a escolha do jogador está dentro do intervalo válido (entre 1 e 3). Se for válida,
+//escolhaValida é definida como verdadeira, encerrando o loop. Caso contrário, uma mensagem é exibida
+//e o jogador é solicitado a fazer uma escolha válida.
+
+	                if (a == 1) {
+	                    if (i == 1) {
+	                        System.out.println("Atacando o oponente...");
+	                        play1.atacar(play2);
+	                        System.out.println("Vida de " + play1.getNome() + ": " + play1.getVida());
+	                        
+	                    } else {
+	                        System.out.println("Atacando oponente...");
+	                        play2.atacar(play1);
+	                        System.out.println("Vida de " + play2.getNome() + ": " + play2.getVida());
+	                        
+	                    }
+
+//Ataque da arma com a opção 01.
+//Se a escolha for atacar com a arma (opção 1), verifica se é o turno do jogador 1 (i == 1) e realiza um
+//ataque do play1 no play2. Caso contrário, realiza um ataque do play2 no play1.
+
+
+	                } else if (a == 2) {
+	                    if (i == 1) {
+	                        System.out.println("Vamos atacar com poder especial!!");
+	                        play1.atacarComPoder(play2);
+	                        System.out.println("Vida de " + play1.getNome() + ": " + play1.getVida());
+	                        
+	                    } else {
+	                        System.out.println("Vamos atacar com poder especial!!");
+	                        play2.atacarComPoder(play1);
+	                        System.out.println("Vida de " + play2.getNome() + ": " + play2.getVida());
+	                        
+	                    }
+//Ataque da arma com a opção 02.
+//Se a escolha for atacar com poder especial (opção 2), verifica de quem é o turno e executa 
+//o ataque especial correspondente.
+
+	                } else if (a == 3) {
+	                    if (i == 1) {
+	                        System.out.println("Jogador " + i + " desistiu. ");
+	                        System.out.println("\nJogador 2 com o personagem " + play2.getNome() + " venceu!");
+	                    } else {
+	                        System.out.println("Jogador " + i + " desistiu. ");
+	                        System.out.println("\nJogador 1 com o personagem " + play1.getNome() + " venceu!");
+	                    }
+	                    return;
+	                }
+//Ataque da arma com a opção 03.
+//Se a escolha for desistir (opção 3), verifica de quem é o turno e anuncia o vencedor correspondente. O
+//método retorna, encerrando a batalha.
+
+                } 
+                if (play1.getVida() == 0) {
+                    System.out.println("\nO jogador 2 com o personagem " + play2.getNome() + " venceu!");
+                    break;
+
+                } else if (play2.getVida() == 0) {
+                    System.out.println("\nO jogador 1 com o personagem " + play1.getNome() + " venceu!");
+                    break;
+//verifica a voda dos jogadores.
+//Após cada turno, verifica se a vida de algum dos jogadores (play1 ou play2) atingiu 0.
+//Se a vida de play1 é igual a 0, imprime que o jogador 2 venceu e encerra o loop.
+//Se a vida de play2 é igual a 0, imprime que o jogador 1 venceu e encerra o loop.
+                }
+            }
+        }
+    }
+}
+
